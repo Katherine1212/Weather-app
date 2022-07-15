@@ -1,10 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, ImageBackground } from 'react-native';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import * as Font from 'expo-font';
+import { useEffect, useState } from 'react';
+import { render } from 'react-dom';
 
 const App = () => {
+  const [load] = Font({
+    Bazzi: require('./assets/fonts/Bazzi.ttf'),
+  })
+  if (!load) {
+    return null;
+  }
   return (
-    <View style={styles.container}>
+    <LinearGradient style={{ ...styles.container }} colors={['#7F7FD5', '#86A8E7', '#91EAE4']}>
       <StatusBar style="dark" />
       <View style={styles.top_container}>
         <View style={styles.top_wapper}>
@@ -24,11 +34,17 @@ const App = () => {
       </View>
       <View style={styles.main_desc}>
         <View style={styles.main_hum}>
-          <Text style={styles.main_humid}>습도 20%</Text>
+          <MaterialCommunityIcons name="water" size={25} color="black">
+            <Text style={styles.main_humid}>습도 20%</Text>
+          </MaterialCommunityIcons>
         </View>
         <View style={styles.main_sun}>
-          <Text style={styles.main_sunrise}>일출: </Text>
-          <Text style={styles.main_sunset}>일몰: </Text>
+          <MaterialCommunityIcons name="weather-sunset-up" size={25} color="black">
+            <Text style={styles.main_sunrise}>일출: </Text>
+          </MaterialCommunityIcons>
+          <MaterialCommunityIcons name="weather-sunset-down" size={25} color="black">
+            <Text style={styles.main_sunset}>일몰: </Text>
+          </MaterialCommunityIcons>
         </View>
       </View>
       <ScrollView
@@ -70,7 +86,7 @@ const App = () => {
         </View>
 
       </ScrollView>
-    </View>
+    </LinearGradient>
   );
 }
 
@@ -81,17 +97,17 @@ const styles = StyleSheet.create({
   top_container: {
     flex: 2.5,
     justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "teal"
+    alignItems: "center"
   },
   top_wapper: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   location: {
     fontSize: 25,
-    fontWeight: "500"
+    fontWeight: "500",
+    fontFamily: "Bazzi"
   },
   main_wrapper: {
     flex: 2,
@@ -118,32 +134,30 @@ const styles = StyleSheet.create({
   main_desc: {
     flex: 0.8,
     flexDirection: "row",
+    alignItems: "center"
   },
   main_hum: {
     flex: 1,
-    alignItems: "center",
-    // justifyContent: "center"
+    alignItems: "center"
   },
   main_sun: {
     flex: 1,
-    alignItems: "center",
-    // justifyContent: "center"
+    alignItems: "center"
   },
   main_humid: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: "500",
     alignContent: "center"
   },
   main_sunrise: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: "500",
   },
   main_sunset: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: "500",
   },
   weekly_container: {
-    backgroundColor: "green",
     maxHeight: 200
   },
   weekly_wrapper: {
